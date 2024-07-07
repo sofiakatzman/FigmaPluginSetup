@@ -4,7 +4,7 @@ figma.ui.resize(500, 500);
 figma.loadAllPagesAsync().then(() => {
   figma.ui.onmessage = async pluginMessage => {
     console.log("Received message:", pluginMessage);
-
+    const nodes:SceneNode[] = [];
     const postComponentSet = figma.root.findOne(node => node.type == "COMPONENT_SET" && node.name == "post") as ComponentSetNode;
     let selectedVariant = null;
 
@@ -48,7 +48,7 @@ figma.loadAllPagesAsync().then(() => {
         
         // Load fonts
         await figma.loadFontAsync({ family: "Rubik", style: "Regular" });
-        
+        nodes.push(newPost)
         // Replace text of new instances
         templateName.characters = pluginMessage.name;
         templateUserName.characters = pluginMessage.username;
@@ -59,7 +59,9 @@ figma.loadAllPagesAsync().then(() => {
     } else {
       console.error("Component set with the name 'post' not found");
     }
-
+    
+    
+    figma.viewport.scrollAndZoomIntoView(nodes);
     figma.closePlugin();
   };
 }).catch(error => {
