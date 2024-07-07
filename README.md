@@ -1,4 +1,4 @@
-##Petma - Figma Plugin
+Petma - Figma Plugin
 Figma Plugin that converts form input to figma component using text and variant specifications. 
 
 Reference Docs:
